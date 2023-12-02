@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -116,8 +117,17 @@ public class HelloController {
         return "";
     }
 
-
-
-
-
+    @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping("/userTest")
+    public String useTest() {
+        User user = new User();
+        user.setId(1L);
+        user.setAge(20);
+        user.setDescription("hello my name is jongwon");
+        user.setRoleType(RoleType.ADMIN);
+        user.setCreatedDate(LocalDateTime.now());
+        em.persist(user);
+        return "";
+    }
 }
