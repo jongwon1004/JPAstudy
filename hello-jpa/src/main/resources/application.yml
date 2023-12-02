@@ -1,17 +1,18 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver  # MySQL 데이터베이스 드라이버 클래스 명입니다.
-    username: root  # 데이터베이스 연결을 위한 사용자 이름입니다.
-    password: JongWon1408! # 데이터베이스 연결을 위한 비밀번호, 여기서는 비워두었습니다.
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: root
+    password: JongWon1408!
     url: jdbc:mysql://localhost:3306/testDB
 
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect  # MySQL 5 InnoDB 방언을 사용합니다.
+    database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
-#      ddl-auto: update  # 어플리케이션을 시작할 때 데이터베이스 스키마를 갱신합니다.
+#      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        format_sql: true
+        format_sql: true # 로그에 쿼리 이쁘게 해줌
+        user_sql_comments: true # 쿼리나갈때 주석 보여줌
