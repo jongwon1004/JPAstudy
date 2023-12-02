@@ -9,10 +9,10 @@ spring:
     database-platform: org.hibernate.dialect.MySQLDialect
     show-sql: true
     hibernate:
-#      ddl-auto: update
+      ddl-auto: create
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
       hibernate:
-        format_sql: true # 로그에 쿼리 이쁘게 해줌
-        user_sql_comments: true # 쿼리나갈때 주석 보여줌
+        format_sql: true
+        use_sql_comments: true

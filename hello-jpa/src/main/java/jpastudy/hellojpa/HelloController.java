@@ -19,7 +19,6 @@ import java.util.List;
 @Slf4j
 public class HelloController {
 
-    @PersistenceContext
     private final EntityManager em;
 
     /*
@@ -87,7 +86,7 @@ public class HelloController {
     @Transactional(rollbackFor = Exception.class)
     @GetMapping("/getMembers")
     public String getMembers() {
-        
+
         List<Member> result = em.createQuery("select m from Member as m where m.id > 1", Member.class)
 //                .setFirstResult(5)
 //                .setMaxResults(8)  -> 페이징도 쉽게 가능하다 5번부터 8개 가져와
