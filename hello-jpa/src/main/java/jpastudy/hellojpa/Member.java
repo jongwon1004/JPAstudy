@@ -1,9 +1,6 @@
 package jpastudy.hellojpa;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,6 +22,7 @@ import lombok.Setter;
 public class Member {
 
     @Id // JPA 한테 PK 가 뭔지는 알려줘야함
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // IDENTITY 전략은 em.persist 하는 시점에 SQL 쿼리가 날라감
     private Long id;
 
     @Column(name = "name") // @Table 이랑 똑같이 만약에 컬럼이름이 userName 이면 name="userName" 으로 적어주면 된다

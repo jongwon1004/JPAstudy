@@ -32,6 +32,7 @@ public class User {
      */
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)  // 전략이 IDENTITY 일때는 em.persist 시점에 INSERT 쿼리가 날라감
     private Long id;
 
     @Column(name = "name", insertable = true, updatable = true, columnDefinition = "VARCHAR(20) DEFAULT 'EMPTY'")

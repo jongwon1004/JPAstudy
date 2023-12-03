@@ -130,4 +130,40 @@ public class HelloController {
         em.persist(user);
         return "";
     }
+
+
+    @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
+    @PostMapping("/identityTest")
+    public String identityTest() {
+        Member member = new Member();
+        member.setName("jongwon");
+        member.setAge(20);
+
+        System.out.println("===================");
+        em.persist(member);
+        System.out.println("member.getId() = " + member.getId());
+        System.out.println("===================");
+
+        /*
+            로그를 확인해보면 알겠지만 ==== 사이에 insert 쿼리가 DB에 날라간다
+            원래는 em.persist 할때 쿼리가 나가는게 아니고 commit 시점에 쿼리가 날라가는데 왜 persist만 했는데 쿼리가 날라가지 ?
+            DB에 값을 넣기전까지 PK값을 모르니까  영속성 컨텍스트 안의 1차캐시에 값을 넣을 수 없기때문에
+            persist 하는 시점에 DB에 쿼리를 날리고 동시에 1차캐시에 PK값이 들어가게한다
+            em.persist 하고 바로 member.getId()로 PK값을 확인하면 값을 얻을 수 있는걸 확인할 수 있다.
+
+            ===================
+            Hibernate:
+                 insert for
+                    jpastudy.hellojpa.Member insert
+                            into
+                    member (age, name)
+                    values
+                            (?, ?)
+             member.getId() = 3
+             ===================
+        */
+        return "";
+
+    }
 }
