@@ -19,7 +19,7 @@ public class Member2 {
     private Team2 team;
 
     // 연관관계 편의메서드 Member 의 team을 세팅해줌과 동시에 Team에 Member을 추가
-    public void setTeam(Team2 team) { // 관례문에 set을 쓰는데 자기가 알아볼 수 있게 changeTeam 같은걸로 이름 바꿔서 써도됨 
+    public void setTeam(Team2 team) { // 관례문에 set을 쓰는데 자기가 알아볼 수 있게 changeTeam 같은걸로 이름 바꿔서 써도됨
         this.team = team;
         team.getMembers().add(this);
     }
