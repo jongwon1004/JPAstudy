@@ -18,7 +18,6 @@ public class ExtendController {
 
     private final EntityManager em;
 
-
     @PostMapping("/extend1")
     @Transactional
     public String extend1() {

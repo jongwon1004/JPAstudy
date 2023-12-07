@@ -1,9 +1,13 @@
 package jpastudy.hellojpa;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceUnitUtil;
 import jpastudy.hellojpa.domain2.Member2;
 import jpastudy.hellojpa.domain2.Team2;
+import jpastudy.hellojpa.domain4.Member4;
+import jpastudy.hellojpa.domain5.Member5;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.Hibernate;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -83,7 +87,6 @@ public class TestController {
         // 순수 객체상태를 고려해서 항상 양쪽에 값을 설정하자
 
 
-
         em.flush();
         em.clear();
 
@@ -94,7 +97,34 @@ public class TestController {
             System.out.println("member = " + member.getName());
         }
 
+        return "";
+    }
 
+    @PostMapping("/test4")
+    @Transactional
+    public String test5() {
+
+        Member4 member = new Member4();
+        member.setName("jongwon");
+
+        em.persist(member);
+
+        em.flush();
+        em.clear();
+
+//        Member4 findMember = em.find(Member4.class, 1L);
+        Member4 findMember = em.find(Member4.class, member.getId());
+        System.out.println("findMember.getClass() = " + findMember.getClass());
+        System.out.println("findMember.getId() = " + findMember.getId()); // getReference 할때 파라미터로 넘겨서 이미 알고있음 -> 쿼리 안나감
+        System.out.println("findMember.getName() = " + findMember.getName()); // 새롭게 값을 가져옴 -> 쿼리 나감
+
+        em.detach(findMember);
+        em.clear();
+
+//        Hibernate.initialize(findMember); // 강제 초기화
+
+        boolean loaded = em.getEntityManagerFactory().getPersistenceUnitUtil().isLoaded(findMember);
+        System.out.println("loaded = " + loaded);
         return "";
     }
 }
