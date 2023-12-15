@@ -17,6 +17,8 @@ public class Parent {
 
     private String name;
 
-    @OneToMany(mappedBy = "parent")
+    // 영속성 전이 + 고아객체 생명주기 관리
+    // Parent 엔티티와 연결이 끊어진 Child 엔티티(고아객체) 는 자동으로 삭제됨 
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Child> children = new ArrayList<>();
 }
